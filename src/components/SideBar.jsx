@@ -69,24 +69,6 @@ const SideBar = () => {
         <li>
           <ToggleTheme open={open} />
         </li>
-        {/* <li>
-          <a
-            href=''
-            rel='noreferrer'
-            target='_blank'>
-            <MdOutlineCoffee size={15} />
-            <p className={`${!open && 'hidden'}`}>Support this project</p>
-          </a>
-        </li> */}
-        {/* <li>
-          <a
-            rel='noreferrer'
-            target='_blank'
-            href=''>
-            <AiOutlineGithub size={15} />
-            <p className={`${!open && 'hidden'}`}>Github</p>
-          </a>
-        </li> */}
         <li>
           <a onClick={() => setModalOpen(true)}>
             <MdOutlineVpnKey size={15} />
