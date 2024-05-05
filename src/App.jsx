@@ -6,12 +6,12 @@ import Modal from './components/Modal';
 import Setting from './components/Setting';
 
 const App = () => {
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const apiKey = window.localStorage.getItem('api-key');
     if (!apiKey) {
-      setModalOpen(false);
+      setModalOpen(true);
     }
   }, []);
   return (
