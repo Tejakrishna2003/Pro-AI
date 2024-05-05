@@ -6,7 +6,7 @@ import {
   MdOutlineVpnKey,
   MdDelete,
 } from 'react-icons/md';
-import { AiOutlineGithub } from 'react-icons/ai';
+// import { AiOutlineGithub } from 'react-icons/ai';
 import { ChatContext } from '../context/chatContext';
 import bot from '../assets/logo.svg';
 import ToggleTheme from './ToggleTheme';
@@ -69,24 +69,24 @@ const SideBar = () => {
         <li>
           <ToggleTheme open={open} />
         </li>
-        <li>
+        {/* <li>
           <a
-            href='https://www.buymeacoffee.com/eyuel'
+            href=''
             rel='noreferrer'
             target='_blank'>
             <MdOutlineCoffee size={15} />
             <p className={`${!open && 'hidden'}`}>Support this project</p>
           </a>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <a
             rel='noreferrer'
             target='_blank'
-            href='https://github.com/EyuCoder/chatgpt-clone'>
+            href=''>
             <AiOutlineGithub size={15} />
             <p className={`${!open && 'hidden'}`}>Github</p>
           </a>
-        </li>
+        </li> */}
         <li>
           <a onClick={() => setModalOpen(true)}>
             <MdOutlineVpnKey size={15} />

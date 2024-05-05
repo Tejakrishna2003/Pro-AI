@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { checkApiKey } from '../utils/checkKeys';
-
 import PropTypes from 'prop-types';
 
-const Setting = ({ modalOpen, setModalOpen }) => {
+const Setting = ({ modalOpen, setModalOpen, selectedOption }) => {
   const apiKey = window.localStorage.getItem('api-key') || '';
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -40,10 +39,10 @@ const Setting = ({ modalOpen, setModalOpen }) => {
     }
   }, [apiKey, modalOpen]);
 
-  return (
-    <form
-      onSubmit={saveKey}
-      className='flex flex-col items-center justify-center gap-2'>
+  // Conditionally render the form only when modalOpen is true and selectedOption is not "gemini"
+  // Also, render the form if selectedOption is "gemini" but the input is empty
+  return modalOpen && (selectedOption !== 'gemini' || input === '') ? (
+    <form onSubmit={saveKey} className='flex flex-col items-center justify-center gap-2'>
       <p className='text-lg font-semibold'>Use your own API-key.</p>
       <p>keys are saved in your own browser</p>
       <p className='italic'>
@@ -74,21 +73,19 @@ const Setting = ({ modalOpen, setModalOpen }) => {
         )}
       </button>
       {apiKey && input && (
-        <span
-          onClick={removeApiKey}
-          disabled={loading}
-          className='w-full max-w-xs btn btn-error'>
+        <span onClick={removeApiKey} disabled={loading} className='w-full max-w-xs btn btn-error'>
           remove keys
         </span>
       )}
       <p>{errorMsg}</p>
     </form>
-  );
+  ) : null; // Return null if modalOpen is false or selectedOption is "gemini" and input is not empty
 };
-
-export default Setting;
 
 Setting.propTypes = {
   modalOpen: PropTypes.bool.isRequired,
   setModalOpen: PropTypes.func.isRequired,
+  selectedOption: PropTypes.string,
 };
+
+export default Setting;
