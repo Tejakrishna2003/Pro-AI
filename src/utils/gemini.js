@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export const genApiKey = "AIzaSyB3TzY9KYe3k3bqCp7X4Z0Mvyy_b_gw3bc";
+export const genApiKey = "process.env.API_KEY";
 
 /**
  * Calls the Gemini API to generate content based on the provided prompt.
