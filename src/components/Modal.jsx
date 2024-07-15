@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Modal = ({ title, children, modalOpen, setModalOpen }) => {
+const Modal = ({ title, children, modalOpen = true, setModalOpen }) => {
   const handleToggle = () => {
     setModalOpen(!modalOpen);
   };
@@ -31,14 +31,10 @@ const Modal = ({ title, children, modalOpen, setModalOpen }) => {
   );
 };
 
-Modal.defaultProps = {
-  modalOpen: true,
-};
-
 Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-  modalOpen: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  modalOpen: PropTypes.bool,
   setModalOpen: PropTypes.func.isRequired,
 };
 

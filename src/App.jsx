@@ -7,6 +7,7 @@ import Setting from './components/Setting';
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('OpenAI'); // Default option
 
   useEffect(() => {
     const apiKey = window.localStorage.getItem('api-key');
@@ -14,14 +15,15 @@ const App = () => {
       setModalOpen(true);
     }
   }, []);
+
   return (
     <ChatContextProvider>
       <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} selectedOption={selectedOption} />
       </Modal>
       <div className='flex transition duration-500 ease-in-out'>
         <SideBar />
-        <ChatView />
+        <ChatView selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       </div>
     </ChatContextProvider>
   );

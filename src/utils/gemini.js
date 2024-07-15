@@ -1,17 +1,19 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import env from "dotenv";
-
-export const genApiKey = "API_KEY";
 
 /**
  * Calls the Gemini API to generate content based on the provided prompt.
  *
  * @param {string} prompt - The prompt for generating content.
- * @param {string} genApiKey - Your Google Generative AI API key.
  * @returns {Promise<string>} - A promise that resolves to the generated text.
  */
-export const gemini = async (prompt, genApiKey) => {
+const gemini = async (prompt) => {
   try {
+    // Retrieve the Google Generative AI API key from localStorage
+    const genApiKey = window.localStorage.getItem('gemini-api-key');
+    if (!genApiKey) {
+      throw new Error("Gemini API key is missing");
+    }
+
     // Initialize Google Generative AI with your API key
     const genAI = new GoogleGenerativeAI(genApiKey);
 
@@ -34,3 +36,5 @@ export const gemini = async (prompt, genApiKey) => {
     throw error;
   }
 };
+
+export default gemini;

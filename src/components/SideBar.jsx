@@ -2,27 +2,20 @@ import { useState, useEffect, useContext } from 'react';
 import {
   MdClose,
   MdMenu,
-  MdOutlineCoffee,
   MdOutlineVpnKey,
   MdDelete,
 } from 'react-icons/md';
-// import { AiOutlineGithub } from 'react-icons/ai';
 import { ChatContext } from '../context/chatContext';
 import bot from '../assets/logo.svg';
 import ToggleTheme from './ToggleTheme';
 import Modal from './Modal';
 import Setting from './Setting';
 
-/**
- * A sidebar component that displays a list of nav items and a toggle
- * for switching between light and dark modes.
- *
- * @param {Object} props - The properties for the component.
- */
 const SideBar = () => {
   const [open, setOpen] = useState(true);
   const [, , clearChat] = useContext(ChatContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('OpenAI');
 
   function handleResize() {
     window.innerWidth <= 720 ? setOpen(false) : setOpen(true);
@@ -47,7 +40,7 @@ const SideBar = () => {
             !open && 'scale-0 hidden'
           } flex flex-row items-center gap-2 mx-auto w-full`}>
           <img src={bot} alt='logo' className='w-6 h-6' />
-          <h1 className={` ${!open && 'scale-0 hidden'}`}>ChatGPT</h1>
+          <h1 className={` ${!open && 'scale-0 hidden'}`}>Pro-AI</h1>
         </div>
         <div
           className='mx-auto btn btn-square btn-ghost'
@@ -75,9 +68,15 @@ const SideBar = () => {
             <p className={`${!open && 'hidden'}`}>OpenAI Key</p>
           </a>
         </li>
+        <li>
+          <a onClick={() => { setSelectedOption('Gemini'); setModalOpen(true); }}>
+            <MdOutlineVpnKey size={15} />
+            <p className={`${!open && 'hidden'}`}>Gemini Key</p>
+          </a>
+        </li>
       </ul>
       <Modal title='Setting' modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} selectedOption={selectedOption} />
       </Modal>
     </section>
   );

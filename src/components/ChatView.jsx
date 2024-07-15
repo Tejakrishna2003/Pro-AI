@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 import Message from "./Message";
 import { ChatContext } from "../context/chatContext";
 import Thinking from "./Thinking";
@@ -6,11 +7,9 @@ import { MdSend } from "react-icons/md";
 import { replaceProfanities } from "no-profanity";
 import { davinci } from "../utils/davinci";
 import { dalle } from "../utils/dalle";
-import { gemini } from "../utils/gemini";
+import gemini from "../utils/gemini"; // Correct import statement
 import Modal from "./Modal";
 import Setting from "./Setting";
-import { genApiKey } from "../utils/gemini";
-// import { geminiApi } from "../utils/gemini";
 
 const options = ["ChatGPT", "DALL·E", "Gemini"];
 const gptModel = ["gpt-3.5-turbo", "gpt-4"];
@@ -20,7 +19,7 @@ const template = [
     prompt: "I want to plan a trip to New York City.",
   },
   {
-    title: "how to make a cake",
+    title: "How to make a cake",
     prompt: "How to make a cake with chocolate and strawberries?",
   },
   {
@@ -36,7 +35,7 @@ const template = [
 /**
  * A chat view component that displays a list of messages and a form for sending new messages.
  */
-const ChatView = () => {
+const ChatView = ({ selectedOption, setSelectedOption }) => {
   const messagesEndRef = useRef();
   const inputRef = useRef();
   const [formValue, setFormValue] = useState("");
@@ -80,7 +79,13 @@ const ChatView = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const key = window.localStorage.getItem("api-key");
+    let key;
+    if (selected === options[0] || selected === options[1]) {
+      key = window.localStorage.getItem("openai-api-key");
+    } else if (selected === options[2]) {
+      key = window.localStorage.getItem("gemini-api-key");
+    }
+
     if (!key) {
       setModalOpen(true);
       return;
@@ -105,8 +110,7 @@ const ChatView = () => {
         const data = response.data.data[0].url;
         data && updateMessage(data, true, aiModel);
       } else if (aiModel === options[2]) {
-        // Only call the Gemini API when "Gemini" is selected
-        const response = await gemini(cleanPrompt, genApiKey);
+        const response = await gemini(cleanPrompt);
         updateMessage(response, true, aiModel);
       }
     } catch (err) {
@@ -119,7 +123,6 @@ const ChatView = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      // 👇 Get input value
       sendMessage(e);
     }
   };
@@ -143,13 +146,13 @@ const ChatView = () => {
       <div className="mx-auto my-4 tabs tabs-boxed w-fit">
         <a
           onClick={() => setGpt(gptModel[0])}
-          className={`${gpt == gptModel[0] && "tab-active"} tab`}
+          className={`${gpt === gptModel[0] && "tab-active"} tab`}
         >
           GPT-3.5
         </a>
         <a
           onClick={() => setGpt(gptModel[1])}
-          className={`${gpt == gptModel[1] && "tab-active"} tab`}
+          className={`${gpt === gptModel[1] && "tab-active"} tab`}
         >
           GPT-4
         </a>
@@ -192,9 +195,9 @@ const ChatView = () => {
           onChange={(e) => setSelected(e.target.value)}
           className="w-full sm:w-40 select select-bordered join-item"
         >
-          <option>{options[0]}</option>
-          <option>{options[1]}</option>
-          <option>{options[2]}</option>
+          {options.map((option, index) => (
+            <option key={index}>{option}</option>
+          ))}
         </select>
         <div className="flex items-stretch justify-between w-full">
           <textarea
@@ -210,10 +213,15 @@ const ChatView = () => {
         </div>
       </form>
       <Modal title="Setting" modalOpen={modalOpen} setModalOpen={setModalOpen}>
-        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <Setting modalOpen={modalOpen} setModalOpen={setModalOpen} selectedOption={selected} />
       </Modal>
     </main>
   );
+};
+
+ChatView.propTypes = {
+  selectedOption: PropTypes.string.isRequired,
+  setSelectedOption: PropTypes.func.isRequired,
 };
 
 export default ChatView;
