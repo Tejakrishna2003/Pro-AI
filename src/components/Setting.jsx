@@ -73,7 +73,7 @@ const Setting = ({ modalOpen, setModalOpen, selectedOption }) => {
             className='text-blue-600'
             rel='noreferrer'
             target='_blank'
-            href='https://developers.google.com/ai/gemini/getting-started'>
+            href='https://aistudio.google.com/app/apikey'>
             here
           </a>
           .
