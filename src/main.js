@@ -8,7 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 ReactGA.initialize(`${import.meta.env.VITE_GOOGLE_ANALYTICS_KEY}`);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  </React.StrictMode>
     <App />
   </React.StrictMode>
 );
