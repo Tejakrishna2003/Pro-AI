@@ -1,3 +1,8 @@
+### You can checkout
+
+[PRO-AI](https://pro-r2sc8aho7-teja-krishnas-projects.vercel.app/)
+
+
 ### Update the node.js to the latest verion
 ------------------------------------------
 
@@ -12,8 +17,4 @@ npm install
 
 npm run dev
 
-
-###You can checkout
-
-[PRO-AI](https://pro-r2sc8aho7-teja-krishnas-projects.vercel.app/)
 
