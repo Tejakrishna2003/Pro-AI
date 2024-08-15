@@ -2,7 +2,7 @@
 
 [PRO-AI](https://pro-r2sc8aho7-teja-krishnas-projects.vercel.app/)
 
-### How to add Your API key to the website
+### How to add Your API keys to the website
 
 [Demo](./Demo.mp4)
 
@@ -22,3 +22,6 @@ npm install
 npm run dev
 
 
+```
+
+#### For kind inoformation For Open AI API key is not working we need to purchase it then only it is access to you 
